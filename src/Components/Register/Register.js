@@ -1,41 +1,40 @@
 import React from 'react';
+import{connect} from 'react-redux';
+
+import {registerEmail, registerPassword, registerName} from './actions';
+
+const mapStateToProps = state => {
+    return {
+        email: state.registerEmail.email,
+        password: state.registerPassword.password,
+        name: state.registerName.name
+    }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        onEmailChange: (event) => dispatch(registerEmail(event.target.value)),
+        onPasswordChange: (event) => dispatch(registerPassword(event.target.value)),
+        onNameChange: (event) => dispatch(registerName(event.target.value)),
+    }
+}
 
 class Register extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: '',
-            password: '',
-            name: ''
-        }
-    }
-
-    onEmailChange = (event) => {
-        this.setState({ email: event.target.value })
-    }
-
-    onPasswordChange = (event) => {
-        this.setState({ password: event.target.value })
-    }
-
-    onNameChange = (event) => {
-        this.setState({ name: event.target.value })
-    }
 
     onSubmitSignIn = () => {
         fetch('https://quiet-dusk-48514.herokuapp.com/register', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                email: this.state.email,
-                password: this.state.password,
-                name: this.state.name
+                email: this.props.email,
+                password: this.props.password,
+                name: this.props.name
             })
         })
             .then(response => response.json())
             .then(user => {
                 if (user.id) {
-                    this.props.loadUser(user)
+                    this.props.loadUser(user);
                     this.props.onRouteChange('signedin');
                 }
             })
@@ -54,7 +53,7 @@ class Register extends React.Component {
                             type="text" 
                             name="name" 
                             id="name" 
-                            onChange={this.onNameChange}/>
+                            onChange={this.props.onNameChange}/>
                         </div>
                         <div className="mt3">
                             <label className="db fw6 lh-copy f6" for="email-address">Email</label>
@@ -63,7 +62,7 @@ class Register extends React.Component {
                             type="email" 
                             name="email-address" 
                             id="email-address" 
-                            onChange={this.onEmailChange}/>
+                            onChange={this.props.onEmailChange}/>
                         </div>
                         <div className="mv3">
                             <label className="db fw6 lh-copy f6" for="password">Password</label>
@@ -72,7 +71,7 @@ class Register extends React.Component {
                             type="password" 
                             name="password" 
                             id="password" 
-                            onChange={this.onPasswordChange}/>
+                            onChange={this.props.onPasswordChange}/>
                         </div>
                     </fieldset>
                     <div className="center">
@@ -91,4 +90,4 @@ class Register extends React.Component {
     }
 }
 
-export default Register;
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

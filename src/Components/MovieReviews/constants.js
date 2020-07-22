@@ -1,0 +1,1 @@
+export const MOVIE_REVIEW_INPUT = 'MOVIE_REVIEW_INPUT';

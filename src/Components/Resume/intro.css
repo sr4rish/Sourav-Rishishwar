@@ -1,0 +1,26 @@
+.projectcard{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    background-color: transparent;
+    padding-bottom: 10rem;
+}
+
+.bkimg{
+    background-image: url("resume.jpg");
+    background-color: white;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.projectcard{
+    height: 70%;
+    width: 100%;
+}
+
+.projectImage{
+    width: 600px;
+    height: auto;
+    padding-right: 10px;
+}

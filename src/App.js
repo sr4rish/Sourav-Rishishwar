@@ -1,26 +1,39 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import Signout from './Components/Signout/Signout';
-import Logo from './Components/Logo/Logo';
-import Imgsearch from './Components/Imgsearch/Imgsearch';
-import Rank from './Components/Rank/Rank';
-import Facerecognise from './Components/Facerecognise/Facerecognise';
+import Imgsearch from './Components/FaceDetect/Imgsearch/Imgsearch';
+//import Rank from './Components/FaceDetect/Rank/Rank';
+import Facerecognise from './Components/FaceDetect/Facerecognise/Facerecognise';
+//import CardList from './Components/Card/CardList';
 import Particles from 'react-particles-js';
-import Signin from './Components/Signin/Signin';
-import Register from './Components/Register/Register';
+//import Signin from './Components/Signin/Signin';
+//import Register from './Components/Register/Register';
+import ReviewInput from './Components/MovieReviews/ReviewInput';
+import RReviewInput from './Components/RestaurantReviews/RReviewInput';
+import Resume from './Components/Resume/Resume'
+
+import {setInput, setUser, updateEntries} from './actions';
+
+const mapStateToProps = state => {
+    return {
+        input: state.setInput.input,
+        user: state.setUser.user
+    }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        onInputChange: (event) => dispatch(setInput(event.target.value)),
+        loadUser: (user) => dispatch(setUser(user)),
+        updateEntries: (entries) => dispatch(updateEntries(entries))
+    }
+}
 
 
 const initialState = {
-  input: '',
   imageUrl:'',
-  box: '',
-  route:'signin',
-  user: {
-    id: '',
-    name: '',
-    email: '',
-    entries: 0,
-    joined: new Date()
- }
+  box: [],
+  route:'signedin',
 }
 
 class App extends React.Component {
@@ -29,96 +42,108 @@ class App extends React.Component {
     this.state = initialState;
   }
 
-  loadUser = (data) =>{
-    this.setState({user: {
-      id: data.id,
-      name: data.name,
-      email: data.email,
-      entries: data.entries,
-      joined: data.joined
-    }})
-  }
-
   onRouteChange = (route) =>{
-    if (route === 'signin'){
+    if (route === 'signedin'){
       this.setState(initialState)
     }
     this.setState({route:route})
   }
 
   calculateFaceLocation = (data) => {
-    const faceData = data.outputs[0].data.regions[0].region_info.bounding_box
+    const faceData = data;
     const image = document.getElementById('inputImage');
     const width = Number(image.width);
     const height = Number(image.height);
-    return{
-      leftCol: faceData.left_col * width,
-      topRow: faceData.top_row * height,
-      rightCol: width - (faceData.right_col * width),
-      bottomRow: height - (faceData.bottom_row * height)
-    }
+    let faces = [];
+    faces = faceData.map((dim)=>{
+      return{
+        leftCol: dim.left_col * width,
+        topRow: dim.top_row * height,
+        rightCol: (1 - dim.right_col) * width,
+        bottomRow: (1 - dim.bottom_row) * height
+      }
+    })
+    return faces;
   }
 
   faceBox = (box) => {
     this.setState({box:box})
   }
 
-  onInputChange = (event) => {
-    this.setState({input: event.target.value});
-  }
-
   onButtonSubmit = () => {
-    this.setState({imageUrl:this.state.input});
-    // console.log(this.state.imageUrl)
+    this.setState({imageUrl:this.props.input});
     fetch('https://quiet-dusk-48514.herokuapp.com/imageurl', {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              input: this.state.input
+              input: this.props.input
           })
       })
       .then(response => response.json())
-      .then(response => {
-        if (response) {
-          fetch('https://quiet-dusk-48514.herokuapp.com/image', {
-            method: 'put',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              id: this.state.user.id
-            })
-          })
-          .then(response => response.json())
-          .then(count => {
-            this.setState(Object.assign(this.state.user, {entries: count}))
-          })
-          .catch(console.log)
-      }
+       .then(response => {
+         if (response) {
+      //     fetch('https://quiet-dusk-48514.herokuapp.com/image', {
+      //       method: 'put',
+      //       headers: { 'Content-Type': 'application/json' },
+      //       body: JSON.stringify({
+      //         id: this.props.user.id
+      //       })
+      //     })
+      //     .then(response => response.json())
+      //     .then(count => {
+      //       this.props.updateEntries(count);
+      //     })
+      //     .catch(err => console.log("Quiet-dusk-api-error" + err))
+      // }
       this.faceBox(this.calculateFaceLocation(response))
-    })
+    }})
       .catch(err => console.log(err))
   }
 
   render() {
     return (
       <div className="App">
-        <Particles className='particles'/>
+        {/* <Particles className='particles'/> */}
+        <Signout onRouteChange={this.onRouteChange} route={this.state.route}/>
         {this.state.route === 'signedin'
           ?<div>
-            <Signout onRouteChange={this.onRouteChange}/>
-            <Logo/>
-            <Rank name={this.state.user.name} entries={this.state.user.entries}/>
-            <Imgsearch onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
-            <Facerecognise faceBox={this.state.box} imageUrl={this.state.imageUrl}/>
-          </div>
+              <Resume onRouteChange={this.onRouteChange}/>
+              {/* <CardList onRouteChange={this.onRouteChange}/> */}
+            </div>
           :
-            (this.state.route === 'signin'
-              ? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
-              : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
-          )
+            (this.state.route === 'FaceDetect'
+              ?<div>
+                  <Particles className='particles'/>
+                  {/* <Rank name={this.props.user.name} entries={this.props.user.entries}/> */}
+                  <Imgsearch onInputChange={this.props.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
+                  <Facerecognise faceBox={this.state.box} imageUrl={this.state.imageUrl}/>
+                </div> 
+              :
+                (this.state.route === 'movieReviews'
+                  ?<div>
+                      <Particles className='particles'/>
+                      <ReviewInput />
+                    </div> 
+                  :
+                    //(this.state.route === 'restaurantReviews'
+                    // ?
+                    <div>
+                        <Particles className='particles'/>
+                        <RReviewInput/>
+                    </div>
+                )
+              ) 
+                    // :
+                      // (this.state.route === 'signin'
+                      //   ? <Signin loadUser={this.props.loadUser} onRouteChange={this.onRouteChange}/>
+                      //   : <Register loadUser={this.props.loadUser} onRouteChange={this.onRouteChange}/>
+                      // )
+                    // )
         }
+        {/* <Footer/> */}
       </div>
     );
   }
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

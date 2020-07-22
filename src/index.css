@@ -4,8 +4,10 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(to right, #ff5f6d 0%, #ffc371 100%);
+  -moz-osx-font-smoothing: grayscale; 
+  /* background: linear-gradient(to right, #667db6 0%, #0082c8 25%, #0082c8 50%, #667db6 100%); */
+  /* background: linear-gradient(to right, #1c92d2 0%, #f2fcfe 100%); */
+  background: linear-gradient(to right,#000046 0%, #1CB5E0 30%, #1CB5E0 70%, #000046 100%);
   
 }
 
