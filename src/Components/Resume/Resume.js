@@ -9,7 +9,7 @@ import commentClassification from'../Images/commentClassification.png'
 import faceRecgonize from'../Images/FaceRecgonise.jpg'
 import fraud from'../Images/fraud.jpg'
 import fake from'../Images/fakeNews.png'
-import resumePhoto from '../Images/resumePhoto.png'
+import resumePhoto from '../Images/resumeNew.png'
 
 
 class Resume extends React.Component {
@@ -25,13 +25,13 @@ class Resume extends React.Component {
                         <h1 className='f2 b'>Hi, I'm <span className='f1 b light-red'>Sourav Rishishwar</span></h1>
                         <h2>About Me</h2>
                         <p className="lh-copy measure center b f6">
-                        I am a Full Stack Data Scientist with enthusiam and focused on
+                        I am a Full Stack Data Scientist with enthusiasm and focused on
                         Machine and Deep Learning.
 
                         I am passionate about building data driven solution and learning
                         everyday to grow professionally in the AI field.
                     </p>
-                    <a class="f5 link dim ba bw1 ph3 pv2 ma2 dib red pointer" href='https://dl.orangedox.com/H3ROBI' target="_blank" rel="noopener noreferrer">Resume</a>
+                    <a class="f5 link dim ba bw1 ph3 pv2 ma2 dib red pointer" href='https://dl.orangedox.com/AJl5I2' target="_blank" rel="noopener noreferrer">Resume</a>
                     <div>
                     <div>
                         <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="phone" class="svg-inline--fa fa-phone fa-w-16 " role="img" xmlns="http://www.w3.org/2000/svg" height='1rem' width='1rem' viewBox="0 0 512 512">
