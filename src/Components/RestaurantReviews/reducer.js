@@ -7,7 +7,7 @@ const intialStateInput = {
 }
 
 export const setRRInput = (state = intialStateInput, action = {}) => {
-    console.log(action.payload)
+    //console.log(action.payload)
     switch (action.type) {
         case RESTAURANT_REVIEW_INPUT:
             return Object.assign({}, state, { restaurant_review_input: action.payload });

@@ -7,7 +7,7 @@ const intialStateInput = {
 }
 
 export const setMRInput = (state = intialStateInput, action = {}) => {
-    console.log(action.payload)
+    //console.log(action.payload)
     switch (action.type) {
         case MOVIE_REVIEW_INPUT:
             return Object.assign({}, state, { movie_review_input: action.payload });

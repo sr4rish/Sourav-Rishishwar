@@ -50,14 +50,14 @@ class RReviewInput extends React.Component {
         return (
             <div>
                 <div>
-                    <p className='f5 fw6 mt6 white center'>
+                    <p className='f5 fw6 pa2 tc mt6 white center'>
                         This is a Naive Bayes classifier based restuarant reviews sentimental analysis model, write a review and give it a try
                     </p>
                 </div>
                 <div className='center ma3'>
                     <input type='text' className='w-70 pl2 br3 ma2 ba' style={{height: '40px'}} onChange={this.props.onReviewChange} />
                     <button
-                        className='f4 pb1 link br3 w-10 mt2 mb2 grow white bg-dark-green shadow-2'
+                        className='f4 pb1 link br3 mr2 mt2 mb2 grow white bg-dark-green shadow-2'
                         onClick={this.onButtonSubmit}>Submit</button>
                 </div>
                 <div className='center ma'>

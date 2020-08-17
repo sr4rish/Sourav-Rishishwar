@@ -1,5 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 import Signout from './Components/Signout/Signout';
 import Imgsearch from './Components/FaceDetect/Imgsearch/Imgsearch';
 //import Rank from './Components/FaceDetect/Rank/Rank';
@@ -102,47 +107,32 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        {/* <Particles className='particles'/> */}
-        <Signout onRouteChange={this.onRouteChange} route={this.state.route}/>
-        {this.state.route === 'signedin'
-          ?<div>
-              <Resume onRouteChange={this.onRouteChange}/>
-              {/* <CardList onRouteChange={this.onRouteChange}/> */}
-            </div>
-          :
-            (this.state.route === 'FaceDetect'
-              ?<div>
-                  <Particles className='particles'/>
-                  {/* <Rank name={this.props.user.name} entries={this.props.user.entries}/> */}
-                  <Imgsearch onInputChange={this.props.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
-                  <Facerecognise faceBox={this.state.box} imageUrl={this.state.imageUrl}/>
-                </div> 
-              :
-                (this.state.route === 'movieReviews'
-                  ?<div>
-                      <Particles className='particles'/>
-                      <ReviewInput />
-                    </div> 
-                  :
-                    //(this.state.route === 'restaurantReviews'
-                    // ?
-                    <div>
-                        <Particles className='particles'/>
-                        <RReviewInput/>
-                    </div>
-                )
-              ) 
-                    // :
-                      // (this.state.route === 'signin'
-                      //   ? <Signin loadUser={this.props.loadUser} onRouteChange={this.onRouteChange}/>
-                      //   : <Register loadUser={this.props.loadUser} onRouteChange={this.onRouteChange}/>
-                      // )
-                    // )
-        }
-        {/* <Footer/> */}
-      </div>
-    );
+      <Router>
+        <Switch>
+          <div className="App">
+            <Signout/>
+            <Route exact path="/">
+              {/* <Particles className='particles'/> */}
+              <Resume className='resume'/>
+              </Route>
+            <Route path="/faceDetect">
+              <Particles className='particles'/>
+              {/* <Rank name={this.props.user.name} entries={this.props.user.entries}/> */}
+              <Imgsearch onInputChange={this.props.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
+              <Facerecognise faceBox={this.state.box} imageUrl={this.state.imageUrl}/>
+            </Route>
+            <Route path="/fakeNews">
+              <Particles className='particles'/>
+              <ReviewInput />
+            </Route>
+            <Route path="/restaurantReviews">
+              <Particles className='particles'/>
+              <RReviewInput />
+            </Route>
+          </div>
+        </Switch>
+      </Router>
+    )
   }
 }
 

@@ -52,14 +52,14 @@ class ReviewInput extends React.Component {
         return (
             <div>
                 <div>
-                    <p className='f5 fw6 mt6 white center'>
+                    <p className='f5 fw6 tc mt6 pa2 white center'>
                         This is LSTM based fake news detection model by news title, type out a news title and give it a try
                     </p>
                 </div>
                 <div className='center pa3'>
                     <input type='text' className='w-70 pl2 br3 ma2 ba' style={{height: '40px'}} onChange={this.props.onReviewChange} />
                     <button
-                        className='f4 pb1 link br3 w-10 mt2 mb2 grow white bg-purple shadow-2'
+                        className='f4 pb1 link br3 mt2 mb2 grow white bg-purple shadow-2'
                         onClick={this.onButtonSubmit}>Submit</button>
                 </div>
                 <div className='center ma'>

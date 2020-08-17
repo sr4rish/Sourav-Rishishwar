@@ -1,8 +1,8 @@
 .projectcard{
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     align-items: flex-start;
+    flex-flow: row wrap;
     background-color: transparent;
     padding-bottom: 10rem;
 }
@@ -13,6 +13,12 @@
 }
 
 .projectImage{
-    height: 70rem;
-    width: 100rem;
+    width: 100%;
+    height: auto;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.flex-size{
+    width: 40rem;
 }

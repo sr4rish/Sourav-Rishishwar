@@ -1,11 +1,11 @@
-.projectcard{
+/* .projectcard{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: flex-start;
     background-color: transparent;
     padding-bottom: 10rem;
-}
+} */
 
 .bkimg{
     background-image: url("resume.jpg");
@@ -14,7 +14,21 @@
     background-size: contain;
 }
 
-.projectcard{
+.contact{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-flow: row wrap;
+}
+
+.intro-card{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-flow: row wrap;
+}
+
+/* .projectcard{
     height: 70%;
     width: 100%;
 }
@@ -23,4 +37,4 @@
     width: 600px;
     height: auto;
     padding-right: 10px;
-}
+} */
